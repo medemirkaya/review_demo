@@ -1,0 +1,55 @@
+{
+  "timezone": "Europe/Istanbul",
+  "epg_days_back": 1,
+  "epg_days_forward": 7,
+  "films": {
+    "bbb": {
+      "title": "Big Buck Bunny",
+      "year": 2008,
+      "license": "CC BY 3.0",
+      "credit": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org",
+      "desc": "A giant rabbit takes gentle revenge on three bullying rodents. Excerpt from the Blender Foundation open movie.",
+      "rating": "TV-G"
+    },
+    "sintel": {
+      "title": "Sintel",
+      "year": 2010,
+      "license": "CC BY 3.0",
+      "credit": "(c) copyright Blender Foundation | www.sintel.org",
+      "desc": "A girl searches for her lost baby dragon. Excerpt from the Blender Foundation open movie.",
+      "rating": "TV-PG"
+    },
+    "tos": {
+      "title": "Tears of Steel",
+      "year": 2012,
+      "license": "CC BY 3.0",
+      "credit": "(CC) Blender Foundation | mango.blender.org",
+      "desc": "Warriors and scientists try to save the world from destructive robots. Excerpt from the Blender Foundation open movie.",
+      "rating": "TV-PG"
+    },
+    "ed": {
+      "title": "Elephants Dream",
+      "year": 2006,
+      "license": "CC BY 2.5",
+      "credit": "(c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org",
+      "desc": "Two strange characters explore a capricious machine world. Excerpt from the Blender Foundation open movie.",
+      "rating": "TV-PG"
+    }
+  },
+  "channels": [
+    {"id": "meadow.demo", "name": "Meadow TV", "group": "Kısa", "film": "bbb", "kind": "hls", "path": "hls/meadow/index.m3u8", "logo": "logos/meadow.png", "number": 1},
+    {"id": "dragon.demo", "name": "Dragon Cinema", "group": "Filmler", "film": "sintel", "kind": "hls", "path": "hls/dragon/index.m3u8", "logo": "logos/dragon.png", "number": 2},
+    {"id": "steel.demo", "name": "Steel Screen", "group": "Filmler", "film": "tos", "kind": "ts", "path": "ts/steel.ts", "logo": "logos/steel.png", "number": 3},
+    {"id": "dream.demo", "name": "Dream Reel", "group": "Kısa", "film": "ed", "kind": "hls", "path": "hls/dream/index.m3u8", "logo": "logos/dream.png", "number": 4}
+  ],
+  "vod": [
+    {"name": "Big Buck Bunny (excerpt)", "group": "Film Arşivi", "film": "bbb", "path": "vod/big-buck-bunny.mp4"},
+    {"name": "Sintel (excerpt)", "group": "Film Arşivi", "film": "sintel", "path": "vod/sintel.mp4"}
+  ],
+  "sources": {
+    "bbb": {"url": "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_640x360.m4v.zip", "zip": true, "start": 20},
+    "sintel": {"url": "https://download.blender.org/durian/movies/Sintel.2010.1080p.mkv", "zip": false, "start": 60},
+    "tos": {"url": "https://download.blender.org/demo/movies/ToS/tears_of_steel_720p.mov", "zip": false, "start": 30},
+    "ed": {"url": "https://download.blender.org/ED/elephantsdream-480-h264-st-aac.mov", "zip": false, "start": 40}
+  }
+}
