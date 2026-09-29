@@ -1,0 +1,61 @@
+name: Publish demo source
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 2 * * *"   # daily: regenerates epg.xml relative to the run date
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Restore encoded media cache
+        uses: actions/cache@v4
+        with:
+          path: out/cache
+          key: media-${{ hashFiles('channels.json', 'scripts/build_media.py') }}
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Build site
+        env:
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          python3 scripts/build_media.py
+          python3 scripts/gen_playlist.py
+          python3 scripts/gen_epg.py
+      - name: Sanity checks
+        run: |
+          sudo apt-get install -y libxml2-utils
+          xmllint --noout out/site/epg.xml
+          grep -c '^#EXTINF' out/site/playlist.m3u
+          find out/site -type f -size +90M -print -quit | grep . && exit 1 || true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
